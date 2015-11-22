@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -z "$TRAVIS_TAG" ]]; then
+  echo "This commit is not a new release, so no CD will take place"
+  exit 0
+fi
+
+echo "This commit indicates a release ${TRAVIS_TAG}. CD will commence.."
+scripts/deploy

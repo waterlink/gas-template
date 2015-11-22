@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ ! -z "$GOOGLE_DRIVE_ID" ]]; then
+  if [[ -f ./gapps.config.json ]]; then
+    echo "Expected not to have any gapps.config.json present, because GOOGLE_DRIVE_ID is specified"
+    exit 1
+  fi
+
+  cat ./gapps.config.json.example | envsubst > ./gapps.config.json
+fi
+
+if [[ ! -f ./gapps.config.json ]]; then
+  echo "Nor gapps.config.json, nor GOOGLE_DRIVE_ID were present, nowhere to deploy"
+  exit 1
+fi
+
+if [[ -f $HOME/.gapps ]]; then
+  cp $HOME/.gapps ./
+fi
+
+if [[ ! -f .gapps ]]; then
+  cat ./.gapps.example | envsubst > .gapps
+fi
+
+docker run \
+  --rm \
+  -v $(pwd):$(pwd) \
+  -w $(pwd) \
+  -u $UID:$GID \
+  -e GOOGLE_DRIVE_ID="$GOOGLE_DRIVE_ID" \
+  -e GOOGLE_CLIENT_ID="$GOOGLE_CLIENT_ID" \
+  -e GOOGLE_CLIENT_SECRET="$GOOGLE_CLIENT_SECRET" \
+  -e GOOGLE_REFRESH_TOKEN="$GOOGLE_REFRESH_TOKEN" \
+  -e HOME="$(pwd)" \
+  waterlink/gapps \
+  gapps upload

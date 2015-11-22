@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+mkdir -p .build
+cat src/*.js > .build/ci.js
+echo "Suite.runbang()" >> .build/ci.js
+
+docker run \
+  --rm \
+  -v $(pwd):$(pwd) \
+  -w $(pwd) \
+  -u $UID:$GID \
+  waterlink/gapps \
+  node .build/ci.js

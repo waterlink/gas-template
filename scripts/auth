@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 
-set -e
-
-mkdir -p .build
-cat src/*.js > .build/ci.js
-echo "Suite.runbang()" >> .build/ci.js
-
 source ./scripts/_need-user
 
 docker run \
+  -it \
   --rm \
+  -v $1:$1:ro \
   -v $(pwd):$(pwd) \
   -w $(pwd) \
   $need_user \
+  -e HOME="$(pwd)" \
   waterlink/gapps \
-  node .build/ci.js
+  gapps auth $1 --no-launch-browser

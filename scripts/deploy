@@ -2,6 +2,9 @@
 
 set -e
 
+source ./scripts/_need-user
+source ./scripts/_envsubst
+
 if [[ ! -z "$GOOGLE_DRIVE_ID" ]]; then
   if [[ -f ./gapps.config.json ]]; then
     echo "Expected not to have any gapps.config.json present, because GOOGLE_DRIVE_ID is specified"
@@ -28,7 +31,7 @@ docker run \
   --rm \
   -v $(pwd):$(pwd) \
   -w $(pwd) \
-  -u $UID:$GID \
+  $need_user \
   -e GOOGLE_DRIVE_ID="$GOOGLE_DRIVE_ID" \
   -e GOOGLE_CLIENT_ID="$GOOGLE_CLIENT_ID" \
   -e GOOGLE_CLIENT_SECRET="$GOOGLE_CLIENT_SECRET" \

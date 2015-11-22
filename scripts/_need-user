@@ -1,0 +1,6 @@
+# ex: syn=shell :
+
+need_user="-u $UID:$GID"
+if [[ "$(uname)" = "Darwin" ]]; then
+  need_user=
+fi

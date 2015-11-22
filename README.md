@@ -56,23 +56,28 @@ Next step is to bootstrap required docker image - `./scripts/bootstrap`.
 Next step is to go to https://script.google.com - this will create new google
 apps script.
 
-*TODO: automate this part better, to not require people to install npm and
-gapps on their machine, and allow them to not edit files manually*
-
-After doing `gapps auth /path/to/client-secret.json` you want to copy your
-`~/.gapps` to `my-project/.gapps`.
-
-You do not need to do `gapps init`, you want
-just copy example config:
+To authenticate the scripts just for you, you will need to create an API
+project in google developer console (as described here:
+https://github.com/danthareja/node-google-apps-script#12-independent-developer-console-project)
+and call authentication script with path do the downloaded credentials file:
 
 ```bash
-cp gapps.config.json.example gapps.config.json
+./scripts/auth /path/to/your/client/secrets.json
 ```
 
-And edit `fileId` in `gapps.config.json` to be equal to the google drive ID of
-your google apps script.
+It will provide you a link to authenticate and then you will have to paste in
+the authentication code that google will provide upon successful
+authentication.
 
-*/TODO*
+Next step is to setup your development GAS project with first deployment:
+
+```bash
+GOOGLE_DRIVE_ID=abcd-efgh ./script/deploy
+```
+
+Where `abcd-efgh` is the google drive ID of your own development project. This
+will automatically create `gapps.config.json` file and all subsequent
+deployments can be done without specification of `GOOGLE_DRIVE_ID`:
 
 After that you should be able to run `scripts/deploy`, which should update code
 in `script.google.com` web UI. (May require page reload or file

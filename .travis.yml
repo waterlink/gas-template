@@ -1,0 +1,11 @@
+language: c
+sudo: required
+
+services:
+- docker
+
+before_script:
+- scripts/bootstrap
+
+script:
+- scripts/ci && scripts/cd

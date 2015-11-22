@@ -37,6 +37,7 @@ cp -r ../gas-template/scripts ./
 cp -r ../gas-template/dockerfiles ./
 cp ../gas-template/.gapps.example ./
 cp ../gas-template/gapps.config.json.example ./
+cp ../gas-template/.travis.yml ./
 
 # And update your .gitignore with:
 #

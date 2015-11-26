@@ -35,6 +35,7 @@ git clone https://github.com/waterlink/gas-template
 cd my-project
 cp -r ../gas-template/scripts ./
 cp -r ../gas-template/dockerfiles ./
+cp ../gas-template/package.json ./
 cp ../gas-template/.gapps.example ./
 cp ../gas-template/gapps.config.json.example ./
 cp ../gas-template/.travis.yml ./
@@ -45,6 +46,8 @@ cp ../gas-template/.travis.yml ./
 #/gapps.config.json.bkup
 #/.gapps
 #/.build/
+#/.npm/
+#/node_modules
 
 # And move all your *.gs files to src/*.js
 

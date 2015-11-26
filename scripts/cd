@@ -8,4 +8,5 @@ if [[ -z "$TRAVIS_TAG" ]]; then
 fi
 
 echo "This commit indicates a release ${TRAVIS_TAG}. CD will commence.."
+echo "var GASDeploy = {version: \"${TRAVIS_TAG}\", deployedAt: \"$(date)\"};" | tee src/0GASDeploy.js
 scripts/deploy

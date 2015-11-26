@@ -3,3 +3,14 @@
 set -e
 
 docker build -t waterlink/gapps dockerfiles/gapps
+
+source ./scripts/_need-user
+
+docker run \
+  --rm \
+  -v $(pwd):$(pwd) \
+  -w $(pwd) \
+  -e HOME=$(pwd) \
+  $need_user \
+  waterlink/gapps \
+  npm install
